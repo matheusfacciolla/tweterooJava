@@ -1,4 +1,4 @@
-package com.tweterooapi.api.repositorys;
+package com.tweterooapi.api.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

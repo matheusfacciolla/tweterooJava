@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.tweterooapi.api.dtos.UserDTO;
 import com.tweterooapi.api.models.User;
-import com.tweterooapi.api.repositorys.AuthRepository;
+import com.tweterooapi.api.repositories.AuthRepository;
 
 @Service
 public class AuthService {
