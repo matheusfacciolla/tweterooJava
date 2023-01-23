@@ -1,5 +1,7 @@
 package com.tweterooapi.api.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,5 +23,9 @@ public class TweetsService {
 
     public Page<Tweet> listTweetsByPagination(Pageable page) {
         return repository.findAll(page);
+    }
+
+    public List<Tweet> listTweetsByUsername(String username) {
+        return repository.findByUsername(username);
     }
 }
