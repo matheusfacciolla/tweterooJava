@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tweterooapi.api.dtos.TweetDTO;
 import com.tweterooapi.api.models.Tweet;
+import com.tweterooapi.api.models.User;
 import com.tweterooapi.api.services.TweetsService;
 
 import jakarta.validation.Valid;
@@ -31,12 +32,19 @@ public class TweetsController {
 
     @PostMapping
     public ResponseEntity<Object> createTweet(@RequestBody @Valid TweetDTO tweetDTO) {
-        service.createTweet(tweetDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+        User isUserExists = service.findUserByUsername(tweetDTO);
+
+        if (isUserExists == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found, impossible to create the tweet!");
+        } else {
+            service.createTweet(tweetDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+        }
     }
 
     @GetMapping
-    public ResponseEntity<Object> listTweetsByPagination(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable page) {
+    public ResponseEntity<Object> listTweetsByPagination(
+            @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable page) {
         return ResponseEntity.status(HttpStatus.OK).body(service.listTweetsByPagination(page));
     }
 

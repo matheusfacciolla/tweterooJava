@@ -11,9 +11,13 @@ import com.tweterooapi.api.repositories.AuthRepository;
 public class AuthService {
 
     @Autowired
-    private AuthRepository repository;
+    private AuthRepository authRepository;
+
+    public User findUserByUsername(UserDTO userDTO) {
+        return authRepository.findByUsername(userDTO.username());
+    }
 
     public void signUp(UserDTO userDTO) {
-        repository.save(new User(userDTO));
+        authRepository.save(new User(userDTO));
     }
 }

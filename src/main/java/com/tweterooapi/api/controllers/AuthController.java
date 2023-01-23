@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tweterooapi.api.dtos.UserDTO;
+import com.tweterooapi.api.models.User;
 import com.tweterooapi.api.services.AuthService;
 
 import jakarta.validation.Valid;
@@ -22,7 +23,13 @@ public class AuthController {
 
     @PostMapping
     public ResponseEntity<Object> signUp(@RequestBody @Valid UserDTO userDTO) {
-        service.signUp(userDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+        User isUserExists = service.findUserByUsername(userDTO);
+
+        if (isUserExists == null) {
+            service.signUp(userDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("This username is already exists!");
+        }
     }
 }
