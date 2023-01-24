@@ -26,8 +26,8 @@ public class TweetsService {
         return authRepository.findByUsername(tweetDTO.username());
     }
 
-    public void createTweet(TweetDTO tweetDTO) {
-        tweetsRepository.save(new Tweet(tweetDTO));
+    public void createTweet(TweetDTO tweetDTO, User user) {
+        tweetsRepository.save(new Tweet(tweetDTO, user));
     }
 
     public Page<Tweet> listTweetsByPagination(Pageable page) {

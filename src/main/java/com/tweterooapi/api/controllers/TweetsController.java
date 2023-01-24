@@ -37,7 +37,7 @@ public class TweetsController {
         if (isUserExists == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found, impossible to create the tweet!");
         } else {
-            service.createTweet(tweetDTO);
+            service.createTweet(tweetDTO, isUserExists);
             return ResponseEntity.status(HttpStatus.CREATED).body("OK");
         }
     }

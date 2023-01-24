@@ -15,8 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Tweet {
 
-    public Tweet(TweetDTO data) {
+    public Tweet(TweetDTO data, User user) {
         this.username = data.username();
+        this.avatar = user.getAvatar();
         this.tweet = data.tweet();
     }
 
@@ -26,6 +27,9 @@ public class Tweet {
 
     @Column(length = 20, nullable = false)
     private String username;
+
+    @Column(length = 1000, nullable = false)
+    private String avatar;
 
     @Column(length = 200, nullable = false)
     private String tweet;
